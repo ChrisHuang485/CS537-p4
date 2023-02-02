@@ -1,0 +1,2757 @@
+('starting', 'build')
+
+**********************************************************************
+
+Test build
+build project using make
+
+**********************************************************************
+Trying to build project using make
+make
+gcc server.c udp.c -o server
+gcc -c -Wall -fpic libmfs.c udp.c
+gcc -shared -o libmfs.so libmfs.o
+gcc client.c udp.c -o client -L. -lmfs
+gcc mkfs.c -o mkfs
+
+
+test build PASSED
+ (build project using make)
+
+('starting', 'shutdown')
+
+**********************************************************************
+
+Test shutdown
+init server and client then call shutdown
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 6135
+/tmp/tmpKNNtni/p/server 6135 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:, inode:0]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  initializing.
+libmfs::  msg sending (type: 8, inum: 0, nbytes: 0; offset: 0; name: )
+
+
+test shutdown PASSED
+ (init server and client then call shutdown)
+
+('starting', 'creat')
+
+**********************************************************************
+
+Test creat
+creat a file and check with lookup
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 8817
+/tmp/tmpKNNtni/p/server 8817 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:test, inode:0]
+server:: create
+server:: next inum: 1
+server:: block 2's inum is written to 1
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:test, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:test, inode:0]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 8, inum: 0, nbytes: 0; offset: 0; name: test)
+
+
+test creat PASSED
+ (creat a file and check with lookup)
+
+('starting', 'write')
+
+**********************************************************************
+
+Test write
+write then read one block
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 8804
+/tmp/tmpKNNtni/p/server 8804 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:test, inode:0]
+server:: create
+server:: next inum: 1
+server:: block 2's inum is written to 1
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:test, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:test, inode:1]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 0; name: test)
+('START BLOCK 1\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00', '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00END BLOCK 1')
+('START BLOCK 1\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00', '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00END BLOCK 1')
+libmfs::  msg sending (type: 8, inum: 1, nbytes: 4096; offset: 0; name: test)
+
+
+test write PASSED
+ (write then read one block)
+
+('starting', 'stat')
+
+**********************************************************************
+
+Test stat
+stat a regular file
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 7667
+/tmp/tmpKNNtni/p/server 7667 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:test, inode:0]
+server:: create
+server:: next inum: 1
+server:: block 2's inum is written to 1
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:test, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:3, name:test, inode:0]
+server:: stat
+size: 96, type: 0
+server:: waiting...
+server:: read message [size:4148, mtype:3, name:test, inode:1]
+server:: stat
+size: 0, type: 1
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:3, name:test, inode:1]
+server:: stat
+size: 4096, type: 1
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:test, inode:1]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 3, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 3, inum: 1, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 3, inum: 1, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 8, inum: 1, nbytes: 4096; offset: 0; name: test)
+
+
+test stat PASSED
+ (stat a regular file)
+
+('starting', 'overwrite')
+
+**********************************************************************
+
+Test overwrite
+overwrite a block
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 5473
+/tmp/tmpKNNtni/p/server 5473 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:test, inode:0]
+server:: create
+server:: next inum: 1
+server:: block 2's inum is written to 1
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:test, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:test, inode:1]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 8, inum: 1, nbytes: 4096; offset: 0; name: test)
+
+
+test overwrite PASSED
+ (overwrite a block)
+
+('starting', 'maxfile')
+
+**********************************************************************
+
+Test maxfile
+write largest possible file
+
+**********************************************************************
+total blocks        39
+  inodes            128 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 8739
+/tmp/tmpKNNtni/p/server 8739 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:test, inode:0]
+server:: create
+server:: next inum: 1
+server:: block 2's inum is written to 1
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:test, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+serlibmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 4096; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 8192; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 12288; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 16384; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 20480; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 24576; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 28672; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 32768; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 36864; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 40960; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 45056; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 49152; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 53248; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 57344; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 61440; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 65536; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 69632; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 73728; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 77824; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 81920; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 86016; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 90112; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 94208; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 98304; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 102400; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 106496; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 110592; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 114688; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 118784; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 4096; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 8192; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 12288; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 16384; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 20480; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 24576; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 28672; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 32768; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 36864; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 40960; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 45056; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 49152; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 53248; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 57344; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 61440; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 65536; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 69632; name:ver:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:test, inode:1]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+ test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 73728; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 77824; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 81920; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 86016; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 90112; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 94208; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 98304; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 102400; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 106496; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 110592; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 114688; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 118784; name: test)
+libmfs::  msg sending (type: 8, inum: 1, nbytes: 4096; offset: 118784; name: test)
+
+
+test maxfile PASSED
+ (write largest possible file)
+
+('starting', 'maxfile2')
+
+**********************************************************************
+
+Test maxfile2
+write more blocks than possible
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 8726
+/tmp/tmpKNNtni/p/server 8726 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:test, inode:0]
+server:: create
+server:: next inum: 1
+server:: block 2's inum is written to 1
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:test, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+serlibmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: test)
+31
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 4096; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 8192; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 12288; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 16384; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 20480; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 24576; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 28672; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 32768; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 36864; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 40960; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 45056; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 49152; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 53248; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 57344; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 61440; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 65536; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 69632; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 73728; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 77824; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 81920; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 86016; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 90112; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 94208; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 98304; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 102400; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 106496; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 110592; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 114688; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 118784; name: test)
+write more than need
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 4096; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 8192; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 12288; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 16384; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 20480; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 24576; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 28672; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 32768; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 36864; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 40960; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 45056; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 49152; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 53248; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 57344; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 61440; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 65536; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 40ver:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:test, inode:1]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+96; offset: 69632; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 73728; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 77824; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 81920; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 86016; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 90112; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 94208; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 98304; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 102400; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 106496; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 110592; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 114688; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 118784; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 122880; name: test)
+libmfs::  msg sending (type: 8, inum: 1, nbytes: 4096; offset: 122880; name: test)
+
+
+test maxfile2 PASSED
+ (write more blocks than possible)
+
+('starting', 'dir1')
+
+**********************************************************************
+
+Test dir1
+check root for dot entries
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 5165
+/tmp/tmpKNNtni/p/server 5165 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:., inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:.., inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:.., inode:0]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  initializing.
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: .)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: ..)
+libmfs::  msg sending (type: 8, inum: 0, nbytes: 0; offset: 0; name: ..)
+
+
+test dir1 PASSED
+ (check root for dot entries)
+
+('starting', 'dir2')
+
+**********************************************************************
+
+Test dir2
+create a new directory and check it
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 7437
+/tmp/tmpKNNtni/p/server 7437 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:testdir, inode:0]
+server:: create
+server:: next inum: 1
+server:: block 2's inum is written to 1
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:testdir, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:., inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:.., inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:.., inode:1]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: testdir)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: testdir)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: .)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: ..)
+libmfs::  msg sending (type: 8, inum: 1, nbytes: 0; offset: 0; name: ..)
+
+
+test dir2 PASSED
+ (create a new directory and check it)
+
+('starting', 'baddir')
+
+**********************************************************************
+
+Test baddir
+try to create a file with a file parent inode
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 9488
+/tmp/tmpKNNtni/p/server 9488 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:testdir, inode:0]
+server:: create
+server:: next inum: 1
+server:: block 2's inum is written to 1
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:testdir, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:testfile, inode:1]
+server:: create
+server:: parent type != MFS_DIRECTORY, creating failed.server:: waiting...
+server:: read message [size:4148, mtype:8, name:testfile, inode:1]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: testdir)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: testdir)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: testfile)
+libmfs::  msg sending (type: 8, inum: 1, nbytes: 0; offset: 0; name: testfile)
+
+
+test baddir PASSED
+ (try to create a file with a file parent inode)
+
+('starting', 'baddir2')
+
+**********************************************************************
+
+Test baddir2
+try to lookup a file with a file parent inode
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 6451
+/tmp/tmpKNNtni/p/server 6451 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:testdir, inode:0]
+server:: create
+server:: next inum: 1
+server:: block 2's inum is written to 1
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:testdir, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:testfile, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:testfile, inode:1]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: testdir)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: testdir)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: testfile)
+libmfs::  msg sending (type: 8, inum: 1, nbytes: 0; offset: 0; name: testfile)
+
+
+test baddir2 PASSED
+ (try to lookup a file with a file parent inode)
+
+('starting', 'unlink')
+
+**********************************************************************
+
+Test unlink
+unlink a file
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 7436
+/tmp/tmpKNNtni/p/server 7436 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:test, inode:0]
+server:: create
+server:: next inum: 1
+server:: block 2's inum is written to 1
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:test, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:7, name:test, inode:0]
+server:: unlink
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:test, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:test, inode:0]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 7, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 8, inum: 0, nbytes: 0; offset: 0; name: test)
+
+
+test unlink PASSED
+ (unlink a file)
+
+('starting', 'unlink2')
+
+**********************************************************************
+
+Test unlink2
+unlink a directory
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 9640
+/tmp/tmpKNNtni/p/server 9640 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:test, inode:0]
+server:: create
+server:: next inum: 1
+server:: block 2's inum is written to 1
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:test, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:7, name:test, inode:0]
+server:: unlink
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:test, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:test, inode:0]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 7, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 8, inum: 0, nbytes: 0; offset: 0; name: test)
+
+
+test unlink2 PASSED
+ (unlink a directory)
+
+('starting', 'empty')
+
+**********************************************************************
+
+Test empty
+unlink a non-empty directory
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 7112
+/tmp/tmpKNNtni/p/server 7112 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:testdir, inode:0]
+server:: create
+server:: next inum: 1
+server:: block 2's inum is written to 1
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:testdir, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:testfile, inode:1]
+server:: create
+server:: next inum: 2
+server:: block 2's inum is written to 2
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:testfile, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:7, name:testdir, inode:0]
+server:: unlink
+server:: waiting...
+server:: read message [size:4148, mtype:7, name:testfile, inode:1]
+server:: unlink
+server:: waiting...
+server:: read message [size:4148, mtype:7, name:testdir, inode:0]
+server:: unlink
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:testdir, inode:0]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: testdir)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: testdir)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: testfile)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: testfile)
+libmfs::  msg sending (type: 7, inum: 0, nbytes: 0; offset: 0; name: testdir)
+libmfs::  msg sending (type: 7, inum: 1, nbytes: 0; offset: 0; name: testfile)
+libmfs::  msg sending (type: 7, inum: 0, nbytes: 0; offset: 0; name: testdir)
+libmfs::  msg sending (type: 8, inum: 0, nbytes: 0; offset: 0; name: testdir)
+
+
+test empty PASSED
+ (unlink a non-empty directory)
+
+('starting', 'name')
+
+**********************************************************************
+
+Test name
+name too long
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 5167
+/tmp/tmpKNNtni/p/server 5167 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, inode:0]
+server:: create
+server:: invalid name, creating failed.server:: waiting...
+server:: read message [size:4148, mtype:8, name:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, inode:0]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA)
+libmfs::  msg sending (type: 8, inum: 0, nbytes: 0; offset: 0; name: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA)
+
+
+test name PASSED
+ (name too long)
+
+('starting', 'persist')
+
+**********************************************************************
+
+Test persist
+restart server after creating a file
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 7632
+/tmp/tmpKNNtni/p/server 7632 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:test, inode:0]
+server:: create
+server:: next inum: 1
+server:: block 2's inum is written to 1
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:test, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:4, name:test, inode:1]
+server:: write
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:test, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:test, inode:1]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: test)
+libmfs::  msg sending (type: 4, inum: 1, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 8, inum: 1, nbytes: 4096; offset: 0; name: test)
+libmfs::  initializing.
+Starting server on port 7632
+/tmp/tmpKNNtni/p/server 7632 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:test, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:5, name:test, inode:1]
+server:: read
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:test, inode:1]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 5, inum: 1, nbytes: 4096; offset: 0; name: test)
+libmfs::  msg sending (type: 8, inum: 1, nbytes: 4096; offset: 0; name: test)
+
+
+test persist PASSED
+ (restart server after creating a file)
+
+('starting', 'bigdir')
+
+**********************************************************************
+
+Test bigdir
+create a directory with 126 files
+
+**********************************************************************
+total blocks        39
+  inodes            128 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 8815
+/tmp/tmpKNNtni/p/server 8815 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:testdir, inode:0]
+server:: create
+server:: next inum: 1
+server:: block 2's inum is written to 1
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:testdir, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:0, inode:1]
+server:: create
+server:: next inum: 2
+server:: block 2's inum is written to 2
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:1, inode:1]
+server:: create
+server:: next inum: 3
+server:: block 3's inum is written to 3
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:2, inode:1]
+server:: create
+server:: next inum: 4
+server:: block 4's inum is written to 4
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:3, inode:1]
+server:: create
+server:: next inum: 5
+server:: block 5's inum is written to 5
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:4, inode:1]
+server:: create
+server:: next inum: 6
+server:: block 6's inum is written to 6
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:5, inode:1]
+server:: create
+server:: next inum: 7
+server:: block 7's inum is written to 7
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:6, inode:1]
+server:: create
+server:: next inum: 8
+server:: block 8's inum is written to 8
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:7, inode:1]
+server:: create
+server:: next inum: 9
+server:: block 9's inum is written to 9
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:8, inode:1]
+server:: create
+server:: next inum: 10
+server:: block 10's inum is written to 10
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:9, inode:1]
+server:: create
+server:: next inum: 11
+server:: block 11's inum is written to 11
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:10, inode:1]
+server:: create
+server:: next inum: 12
+server:: block 12's inum is written to 12
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:11, inode:1]
+server:: create
+server:: next inum: 13
+server:: block 13's inum is written to 13
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:12, inode:1]
+server:: create
+server:: next inum: 14
+server:: block 14's inum is written to 14
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:13, inode:1]
+server:: create
+server:: next inum: 15
+server:: block 15's inum is written to 15
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:14, inode:1]
+server:: create
+server:: next inum: 16
+server:: block 16's inum is written to 16
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:15, inode:1]
+server:: create
+server:: next inum: 17
+server:: block 17's inum is written to 17
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:16, inode:1]
+server:: create
+server:: next inum: 18
+server:: block 18's inum is written to 18
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:17, inode:1]
+server:: create
+server:: next inum: 19
+server:: block 19's inum is written to 19
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:18, inode:1]
+server:: create
+server:: next inum: 20
+server:: block 20's inum is written to 20
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:19, inode:1]
+server:: create
+server:: next inum: 21
+server:: block 21's inum is written to 21
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:20, inode:1]
+server:: create
+server:: next inum: 22
+server:: block 22's inum is written to 22
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:21, inode:1]
+server:: create
+server:: next inum: 23
+server:: block 23's inum is written to 23
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:22, inode:1]
+server:: create
+server:: next inum: 24
+server:: block 24's inum is written to 24
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:23, inode:1]
+server:: create
+server:: next inum: 25
+server:: block 25's inum is written to 25
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:24, inode:1]
+server:: create
+server:: next inum: 26
+server:: block 26's inum is written to 26
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:25, inode:1]
+server:: create
+server:: next inum: 27
+server:: block 27's inum is written to 27
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:26, inode:1]
+server:: create
+server:: next inum: 28
+server:: block 28's inum is written to 28
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:27, inode:1]
+server:: create
+server:: next inum: 29
+server:: block 29's inum is written to 29
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:28, inode:1]
+server:: create
+server:: next inum: 30
+server:: block 30's inum is written to 30
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:29, inode:1]
+server:: create
+server:: next inum: 31
+server:: block 31's inum is written to 31
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:30, inode:1]
+server:: create
+server:: next inum: 32
+server:: block 32's inum is written to 32
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:31, inode:1]
+server:: create
+server:: next inum: 33
+server:: block 33's inum is written to 33
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:32, inode:1]
+server:: create
+server:: next inum: 34
+server:: block 34's inum is written to 34
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:33, inode:1]
+server:: create
+server:: next inum: 35
+server:: block 35's inum is written to 35
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:34, inode:1]
+server:: create
+server:: next inum: 36
+server:: block 36's inum is written to 36
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:35, inode:1]
+server:: create
+server:: next inum: 37
+server:: block 37's inum is written to 37
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:36, inode:1]
+server:: create
+server:: next inum: 38
+server:: block 38's inum is written to 38
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:37, inode:1]
+server:: create
+server:: next inum: 39
+server:: block 39's inum is written to 39
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:38, inode:1]
+server:: create
+server:: next inum: 40
+server:: block 40's inum is written to 40
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:39, inode:1]
+server:: create
+server:: next inum: 41
+server:: block 41's inum is written to 41
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:40, inode:1]
+server:: create
+server:: next inum: 42
+server:: block 42's inum is written to 42
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:41, inode:1]
+server:: create
+server:: next inum: 43
+server:: block 43's inum is written to 43
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:42, inode:1]
+server:: create
+server:: next inum: 44
+server:: block 44's inum is written to 44
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:43, inode:1]
+server:: create
+server:: next inum: 45
+server:: block 45's inum is written to 45
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:44, inode:1]
+server:: create
+server:: next inum: 46
+server:: block 46's inum is written to 46
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:45, inode:1]
+server:: create
+server:: next inum: 47
+server:: block 47's inum is written to 47
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:46, inode:1]
+server:: create
+server:: next inum: 48
+server:: block 48's inum is written to 48
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:47, inode:1]
+server:: create
+server:: next inum: 49
+server:: block 49's inum is written to 49
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:48, inode:1]
+server:: create
+server:: next inum: 50
+server:: block 50's inum is written to 50
+server:: waiting...
+selibmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: testdir)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: testdir)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 0)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 1)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 2)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 3)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 4)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 5)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 6)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 7)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 8)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 9)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 10)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 11)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 12)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 13)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 14)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 15)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 16)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 17)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 18)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 19)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 20)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 21)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 22)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 23)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 24)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 25)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 26)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 27)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 28)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 29)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 30)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 31)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 32)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 33)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 34)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 35)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 36)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 37)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 38)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 39)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 40)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 41)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 42)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 43)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 44)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 45)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 46)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 47)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 48)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 49)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 50)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 51)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 52)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offserver:: read message [size:4148, mtype:6, name:49, inode:1]
+server:: create
+server:: next inum: 51
+server:: block 51's inum is written to 51
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:50, inode:1]
+server:: create
+server:: next inum: 52
+server:: block 52's inum is written to 52
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:51, inode:1]
+server:: create
+server:: next inum: 53
+server:: block 53's inum is written to 53
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:52, inode:1]
+server:: create
+server:: next inum: 54
+server:: block 54's inum is written to 54
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:53, inode:1]
+server:: create
+server:: next inum: 55
+server:: block 55's inum is written to 55
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:54, inode:1]
+server:: create
+server:: next inum: 56
+server:: block 56's inum is written to 56
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:55, inode:1]
+server:: create
+server:: next inum: 57
+server:: block 57's inum is written to 57
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:56, inode:1]
+server:: create
+server:: next inum: 58
+server:: block 58's inum is written to 58
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:57, inode:1]
+server:: create
+server:: next inum: 59
+server:: block 59's inum is written to 59
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:58, inode:1]
+server:: create
+server:: next inum: 60
+server:: block 60's inum is written to 60
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:59, inode:1]
+server:: create
+server:: next inum: 61
+server:: block 61's inum is written to 61
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:60, inode:1]
+server:: create
+server:: next inum: 62
+server:: block 62's inum is written to 62
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:61, inode:1]
+server:: create
+server:: next inum: 63
+server:: block 63's inum is written to 63
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:62, inode:1]
+server:: create
+server:: next inum: 64
+server:: block 64's inum is written to 64
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:63, inode:1]
+server:: create
+server:: next inum: 65
+server:: block 65's inum is written to 65
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:64, inode:1]
+server:: create
+server:: next inum: 66
+server:: block 66's inum is written to 66
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:65, inode:1]
+server:: create
+server:: next inum: 67
+server:: block 67's inum is written to 67
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:66, inode:1]
+server:: create
+server:: next inum: 68
+server:: block 68's inum is written to 68
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:67, inode:1]
+server:: create
+server:: next inum: 69
+server:: block 69's inum is written to 69
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:68, inode:1]
+server:: create
+server:: next inum: 70
+server:: block 70's inum is written to 70
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:69, inode:1]
+server:: create
+server:: next inum: 71
+server:: block 71's inum is written to 71
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:70, inode:1]
+server:: create
+server:: next inum: 72
+server:: block 72's inum is written to 72
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:71, inode:1]
+server:: create
+server:: next inum: 73
+server:: block 73's inum is written to 73
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:72, inode:1]
+server:: create
+server:: next inum: 74
+server:: block 74's inum is written to 74
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:73, inode:1]
+server:: create
+server:: next inum: 75
+server:: block 75's inum is written to 75
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:74, inode:1]
+server:: create
+server:: next inum: 76
+server:: block 76's inum is written to 76
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:75, inode:1]
+server:: create
+server:: next inum: 77
+server:: block 77's inum is written to 77
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:76, inode:1]
+server:: create
+server:: next inum: 78
+server:: block 78's inum is written to 78
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:77, inode:1]
+server:: create
+server:: next inum: 79
+server:: block 79's inum is written to 79
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:78, inode:1]
+server:: create
+server:: next inum: 80
+server:: block 80's inum is written to 80
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:79, inode:1]
+server:: create
+server:: next inum: 81
+server:: block 81's inum is written to 81
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:80, inode:1]
+server:: create
+server:: next inum: 82
+server:: block 82's inum is written to 82
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:81, inode:1]
+server:: create
+server:: next inum: 83
+server:: block 83's inum is written to 83
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:82, inode:1]
+server:: create
+server:: next inum: 84
+server:: block 84's inum is written to 84
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:83, inode:1]
+server:: create
+server:: next inum: 85
+server:: block 85's inum is written to 85
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:84, inode:1]
+server:: create
+server:: next inum: 86
+server:: block 86's inum is written to 86
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:85, inode:1]
+server:: create
+server:: next inum: 87
+server:: block 87's inum is written to 87
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:86, inode:1]
+server:: create
+server:: next inum: 88
+server:: block 88's inum is written to 88
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:87, inode:1]
+server:: create
+server:: next inum: 89
+server:: block 89's inum is written to 89
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:88, inode:1]
+server:: create
+server:: next inum: 90
+server:: block 90's inum is written to 90
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:89, inode:1]
+server:: create
+server:: next inum: 91
+server:: block 91's inum is written to 91
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:90, inode:1]
+server:: create
+server:: next inum: 92
+server:: block 92's inum is written to 92
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:91, inode:1]
+server:: create
+server:: next inum: 93
+server:: block 93's inum is written to 93
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:92, inode:1]
+server:: create
+server:: next inum: 94
+server:: block 94's inum is written to 94
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:93, inode:1]
+server:: create
+server:: next inum: 95
+server:: block 95's inum is written to 95
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:94, inode:1]
+server:: create
+server:: next inum: 96
+server:: block 96's inum is written to 96
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:95, inode:1]
+server:: create
+server:: next inum: 97
+server:: block 97's inum is written to 97
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:96, inode:1]
+server:: create
+server:: next inum: 98
+server:: block 98's inum is written to 98
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:97, inode:1]
+server:: create
+server:: next inum: 99
+server:: block 99's inum is written to 99
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:98, inode:1]
+server:: create
+server:: next inum: 100
+server:: block 100's inum is written to 100
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:99, inode:1]
+server:: create
+server:: next t: 0; name: 53)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 54)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 55)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 56)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 57)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 58)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 59)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 60)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 61)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 62)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 63)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 64)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 65)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 66)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 67)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 68)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 69)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 70)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 71)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 72)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 73)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 74)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 75)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 76)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 77)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 78)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 79)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 80)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 81)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 82)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 83)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 84)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 85)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 86)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 87)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 88)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 89)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 90)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 91)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 92)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 93)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 94)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 95)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 96)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 97)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 98)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 99)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 100)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 101)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 102)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 103)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 104)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 105)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 106)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 107)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 108)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offsinum: 101
+server:: block 101's inum is written to 101
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:100, inode:1]
+server:: create
+server:: next inum: 102
+server:: block 102's inum is written to 102
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:101, inode:1]
+server:: create
+server:: next inum: 103
+server:: block 103's inum is written to 103
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:102, inode:1]
+server:: create
+server:: next inum: 104
+server:: block 104's inum is written to 104
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:103, inode:1]
+server:: create
+server:: next inum: 105
+server:: block 105's inum is written to 105
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:104, inode:1]
+server:: create
+server:: next inum: 106
+server:: block 106's inum is written to 106
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:105, inode:1]
+server:: create
+server:: next inum: 107
+server:: block 107's inum is written to 107
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:106, inode:1]
+server:: create
+server:: next inum: 108
+server:: block 108's inum is written to 108
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:107, inode:1]
+server:: create
+server:: next inum: 109
+server:: block 109's inum is written to 109
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:108, inode:1]
+server:: create
+server:: next inum: 110
+server:: block 110's inum is written to 110
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:109, inode:1]
+server:: create
+server:: next inum: 111
+server:: block 111's inum is written to 111
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:110, inode:1]
+server:: create
+server:: next inum: 112
+server:: block 112's inum is written to 112
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:111, inode:1]
+server:: create
+server:: next inum: 113
+server:: block 113's inum is written to 113
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:112, inode:1]
+server:: create
+server:: next inum: 114
+server:: block 114's inum is written to 114
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:113, inode:1]
+server:: create
+server:: next inum: 115
+server:: block 115's inum is written to 115
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:114, inode:1]
+server:: create
+server:: next inum: 116
+server:: block 116's inum is written to 116
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:115, inode:1]
+server:: create
+server:: next inum: 117
+server:: block 117's inum is written to 117
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:116, inode:1]
+server:: create
+server:: next inum: 118
+server:: block 118's inum is written to 118
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:117, inode:1]
+server:: create
+server:: next inum: 119
+server:: block 119's inum is written to 119
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:118, inode:1]
+server:: create
+server:: next inum: 120
+server:: block 120's inum is written to 120
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:119, inode:1]
+server:: create
+server:: next inum: 121
+server:: block 121's inum is written to 121
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:120, inode:1]
+server:: create
+server:: next inum: 122
+server:: block 122's inum is written to 122
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:121, inode:1]
+server:: create
+server:: next inum: 123
+server:: block 123's inum is written to 123
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:122, inode:1]
+server:: create
+server:: next inum: 124
+server:: block 124's inum is written to 124
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:123, inode:1]
+server:: create
+server:: next inum: 125
+server:: block 125's inum is written to 125
+server:: waiting...
+server:: read message [size:4148, mtypet: 0; name: 109)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 110)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 111)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 112)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 113)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 114)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 115)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 116)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 117)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 118)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 119)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 120)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 121)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 122)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 123)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 124)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 125)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 0)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 1)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 2)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 3)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 4)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 5)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 6)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 7)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 8)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 9)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 10)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 11)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 12)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 13)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 14)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 15)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 16)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 17)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 18)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 19)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 20)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 21)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 22)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 23)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 24)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 25)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 26)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 27)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 28)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 29)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 30)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 31)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 32)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 33)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 34)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 35)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 36)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 37)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 38)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offsee:6, name:124, inode:1]
+server:: create
+server:: next inum: 126
+server:: block 126's inum is written to 126
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:125, inode:1]
+server:: create
+server:: next inum: 127
+server:: block 127's inum is written to 127
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:0, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:1, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:2, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:3, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:4, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:5, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:6, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:7, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:8, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:9, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:10, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:11, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:12, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:13, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:14, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:15, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:16, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:17, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:18, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:19, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:20, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:21, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:22, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:23, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:24, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:25, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:26, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:27, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:28, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:29, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:30, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:31, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:32, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:33, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:34, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:35, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:36, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:37, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:38, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:39, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:40, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:41, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:42, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:43, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:44, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:45, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:46, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:47, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:48, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:49, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:50, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:51, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:52, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:53, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:54, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:55, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:56, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:57, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:58, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:59, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:60, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:61, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:62, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:63, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:64, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:65, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:66, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:67, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:68, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:69, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:70, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:71, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:72, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:73, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:74, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:75, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:76, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:77, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:78, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:79, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:80, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:81,t: 0; name: 39)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 40)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 41)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 42)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 43)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 44)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 45)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 46)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 47)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 48)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 49)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 50)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 51)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 52)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 53)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 54)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 55)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 56)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 57)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 58)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 59)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 60)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 61)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 62)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 63)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 64)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 65)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 66)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 67)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 68)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 69)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 70)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 71)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 72)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 73)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 74)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 75)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 76)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 77)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 78)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 79)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 80)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 81)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 82)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 83)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 84)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 85)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 86)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 87)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 88)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 89)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 90)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 91)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 92)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 93)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 94)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; na inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:82, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:83, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:84, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:85, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:86, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:87, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:88, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:89, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:90, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:91, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:92, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:93, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:94, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:95, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:96, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:97, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:98, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:99, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:100, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:101, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:102, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:103, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:104, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:105, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:106, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:107, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:108, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:109, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:110, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:111, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:112, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:113, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:114, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:115, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:116, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:117, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:118, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:119, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:120, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:121, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:122, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:123, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:124, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:125, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:125, inode:1]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+me: 95)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 96)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 97)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 98)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 99)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 100)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 101)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 102)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 103)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 104)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 105)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 106)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 107)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 108)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 109)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 110)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 111)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 112)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 113)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 114)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 115)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 116)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 117)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 118)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 119)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 120)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 121)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 122)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 123)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 124)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 125)
+libmfs::  msg sending (type: 8, inum: 1, nbytes: 0; offset: 0; name: 125)
+
+
+test bigdir PASSED
+ (create a directory with 126 files)
+
+('starting', 'deep')
+
+**********************************************************************
+
+Test deep
+create many deeply nested directories
+
+**********************************************************************
+total blocks        39
+  inodes            128 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 6178
+/tmp/tmpKNNtni/p/server 6178 /home/julianz/private/cs537/p4/test.img
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:testdir, inode:0]
+server:: create
+server:: next inum: 1
+server:: block 2's inum is written to 1
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:testdir, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:0, inode:1]
+server:: create
+server:: next inum: 2
+server:: block 2's inum is written to 2
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:0, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:1, inode:2]
+server:: create
+server:: next inum: 3
+server:: block 2's inum is written to 3
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:1, inode:2]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:2, inode:3]
+server:: create
+server:: next inum: 4
+server:: block 2's inum is written to 4
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:2, inode:3]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:6, name:3, inode:4]
+server:: create
+server:: next inum: 5
+server:: block 2's inum is written to 5
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:3, inode:4]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:testdir, inode:0]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:0, inode:1]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:1, inode:2]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:2, inode:3]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:2, name:3, inode:4]
+server:: lookup
+server:: waiting...
+server:: read message [size:4148, mtype:8, name:3, inode:4]
+server:: shutdown
+server:: inode bitmap saved
+server:: data bitmap saved
+server:: inode blocks saved
+server:: data blocks saved
+server:: fsync completed
+server:: exiting...
+libmfs::  initializing.
+libmfs::  msg sending (type: 6, inum: 0, nbytes: 0; offset: 0; name: testdir)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: testdir)
+libmfs::  msg sending (type: 6, inum: 1, nbytes: 0; offset: 0; name: 0)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 0)
+libmfs::  msg sending (type: 6, inum: 2, nbytes: 0; offset: 0; name: 1)
+libmfs::  msg sending (type: 2, inum: 2, nbytes: 0; offset: 0; name: 1)
+libmfs::  msg sending (type: 6, inum: 3, nbytes: 0; offset: 0; name: 2)
+libmfs::  msg sending (type: 2, inum: 3, nbytes: 0; offset: 0; name: 2)
+libmfs::  msg sending (type: 6, inum: 4, nbytes: 0; offset: 0; name: 3)
+libmfs::  msg sending (type: 2, inum: 4, nbytes: 0; offset: 0; name: 3)
+libmfs::  msg sending (type: 2, inum: 0, nbytes: 0; offset: 0; name: testdir)
+libmfs::  msg sending (type: 2, inum: 1, nbytes: 0; offset: 0; name: 0)
+libmfs::  msg sending (type: 2, inum: 2, nbytes: 0; offset: 0; name: 1)
+libmfs::  msg sending (type: 2, inum: 3, nbytes: 0; offset: 0; name: 2)
+libmfs::  msg sending (type: 2, inum: 4, nbytes: 0; offset: 0; name: 3)
+libmfs::  msg sending (type: 8, inum: 4, nbytes: 0; offset: 0; name: 3)
+
+
+test deep PASSED
+ (create many deeply nested directories)
+
+**********************************************************************
+Summary:
+test build PASSED
+ (build project using make)
+
+test shutdown PASSED
+ (init server and client then call shutdown)
+
+test creat PASSED
+ (creat a file and check with lookup)
+
+test write PASSED
+ (write then read one block)
+
+test stat PASSED
+ (stat a regular file)
+
+test overwrite PASSED
+ (overwrite a block)
+
+test maxfile PASSED
+ (write largest possible file)
+
+test maxfile2 PASSED
+ (write more blocks than possible)
+
+test dir1 PASSED
+ (check root for dot entries)
+
+test dir2 PASSED
+ (create a new directory and check it)
+
+test baddir PASSED
+ (try to create a file with a file parent inode)
+
+test baddir2 PASSED
+ (try to lookup a file with a file parent inode)
+
+test unlink PASSED
+ (unlink a file)
+
+test unlink2 PASSED
+ (unlink a directory)
+
+test empty PASSED
+ (unlink a non-empty directory)
+
+test name PASSED
+ (name too long)
+
+test persist PASSED
+ (restart server after creating a file)
+
+test bigdir PASSED
+ (create a directory with 126 files)
+
+test deep PASSED
+ (create many deeply nested directories)
+
+Passed 19 of 19 tests.
+Overall 19 of 19
